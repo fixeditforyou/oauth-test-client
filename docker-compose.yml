@@ -1,0 +1,64 @@
+version: "3.8"
+
+x-common: &common
+  restart: "no"
+  environment: &env
+    TZ: "${TIMEZONE:-Europe/Vienna}"
+  volumes:
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+  env_file:
+    - .env
+    - .env.local
+  networks:
+    - app-network
+
+
+services:
+
+  caddy:
+    <<: *common
+    image: caddy:2-alpine
+    hostname: oauth-client
+    tmpfs:
+      - /run:mode=777
+      - /tmp:mode=777
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - caddy_data:/data
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - php_run:/run/php
+      - ./public:/application:ro
+
+  app:
+    <<: *common
+    image: fixeditforyou/php8-fpm:dev
+    environment:
+      <<: *env
+      PHP_MEMORY_LIMIT: 512M
+      XDEBUG_IDE_KEY: "${XDEBUG_IDE_KEY:-PHPSTORM}"
+      PHP_IDE_CONFIG: >-
+        serverName=localhost
+    working_dir: /application
+    tmpfs:
+      - /run:mode=777
+      - /tmp:mode=777
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - php_run:/run/php
+      - .:/application:z
+      - "$HOME/.config/composer/:/tmp/composer"
+      - "$HOME/.cache/composer/:/tmp/composer/cache"
+
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+    driver: local
+  php_run:
+    driver: local

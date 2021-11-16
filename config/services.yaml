@@ -1,0 +1,21 @@
+parameters:
+    oauth.client_id:             '%env(OAUTH_CLIENT_ID)%'
+    oauth.client_secret:         '%env(OAUTH_CLIENT_SECRET)%'
+    oauth.server.url:            '%env(OAUTH_SERVER_URL)%'
+    oauth.server.authorize_path: '%env(OAUTH_SERVER_AUTHORIZE_PATH)%'
+    oauth.server.token_path:     '%env(OAUTH_SERVER_TOKEN_PATH)%'
+    oauth.server.profile_path:   '%env(OAUTH_SERVER_PROFILE_PATH)%'
+
+
+services:
+    _defaults:
+        autowire:      true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'

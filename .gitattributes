@@ -1,0 +1,5 @@
+composer.lock binary
+symfony.lock binary
+package-lock.json binary
+yarn.lock binary
+*.svg binary

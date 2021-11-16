@@ -1,0 +1,54 @@
+name: PHP Code Quality
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+
+
+env:
+  APP_ENV: 'test'
+  TRUSTED_HOST: 'symfony\\.localhost'
+  TEST_DATABASE_URL: 'sqlite:///%kernel.project_dir%/var/test.sqlite'
+  SYMFONY_DEPRECATIONS_HELPER: 'disabled'
+
+
+jobs:
+
+  code_quality:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+
+      - name: Setup PHP 8.0
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: bcmath, exif, gd, intl, sqlite, pdo_sqlite, sysvsem, xsl, zip, redis, yaml, apcu, imagick, dom, curl, libxml, mbstring, pcntl, iconv
+          coverage: none
+
+      - name: Display PHP extensions
+        run: php -r 'foreach (get_loaded_extensions() as $extension) echo $extension . " " . phpversion($extension) . PHP_EOL;'
+
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-publish
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress
+
+
+      - name: Psalm
+        run: ./vendor/bin/psalm -c psalm.xml

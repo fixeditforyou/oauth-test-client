@@ -1,0 +1,23 @@
+{
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+    auto_https disable_redirects
+}
+
+:80,
+{$SITE_SCHEME}://{$SITE_HOST} {
+    file_server
+    encode gzip zstd
+    push
+
+    # caddy only gets ./public
+    root * /application
+
+    php_fastcgi unix//run/php/fpm.sock {
+        # FPM needs full application root
+        root /application/public
+    }
+}

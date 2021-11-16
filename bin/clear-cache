@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+docker compose exec app sh -c \
+    'bin/console cache:clear --no-warmup
+     bin/console cache:pool:clear cache.global_clearer
+     bin/console cache:warmup'

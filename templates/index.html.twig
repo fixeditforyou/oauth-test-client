@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OAuth test client{% endblock title %}
+
+{% block body %}
+    <p>
+        {% if userdata is not empty %}
+            {{ dump(userdata) }}
+        {% endif %}
+    </p>
+
+    <p>
+        <a href="{{ path('authorize') }}">Start</a>
+    </p>
+{% endblock body %}

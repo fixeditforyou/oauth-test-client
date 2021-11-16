@@ -1,0 +1,20 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+
+
+#localized_controllers:
+#    # prefix all urls with a (default) locale
+#    resource: ../../src/Controller/Localized/
+#    type: annotation
+#
+#    prefix: /{_locale}
+#    requirements:
+#        _locale: '%app_locales%'
+#    defaults:
+#        _locale: '%locale%'
+
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation
