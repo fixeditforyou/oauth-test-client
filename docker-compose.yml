@@ -33,7 +33,7 @@ services:
 
   app:
     <<: *common
-    image: fixeditforyou/php8-fpm:dev
+    image: fixeditforyou/php8.0-fpm:dev
     environment:
       <<: *env
       PHP_MEMORY_LIMIT: 512M

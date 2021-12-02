@@ -26,7 +26,7 @@ framework:
     http_client:
         max_host_connections: 10
         default_options:
-            headers: { 'X-Powered-By': 'Symfony Template' }
+            headers: { 'X-Powered-By': 'OAuth test client' }
             max_redirects: 7
 
 when@test:
