@@ -2,24 +2,21 @@
     "license": "UNLICENSED",
     "private": true,
     "dependencies": {
-        "@symfony/stimulus-bridge": "^2.1.0",
-        "@symfony/webpack-encore": "^1.6.0",
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/stimulus-bridge": "^3.0.0",
+        "@symfony/webpack-encore": "^1.7.0",
         "autoprefixer": "^10.3.3",
         "core-js": "^3.17.1",
-        "dotenv-cli": "^4.0.0",
+        "dotenv-cli": "^5.1.0",
         "postcss": "^8.3.6",
         "postcss-loader": "^6.1.1",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.39.0",
         "sass-loader": "^12.1.0",
-        "stimulus": "^2.0.0",
+        "stimulus": "^3.0.1",
         "webpack-notifier": "^1.6.0"
     },
-    "devDependencies": {
-        "cross-var": "^1.1.0"
-    },
     "scripts": {
-        "dev-server": "dotenv -c -- cross-var encore dev-server --https --port 8081 --host %SITE_SCHEME%://%SITE_HOST%",
         "dev": "dotenv -c -- encore dev",
         "watch": "dotenv -c -- encore dev --watch",
         "watch-prod": "dotenv -c -- encore production --watch",

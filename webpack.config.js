@@ -1,10 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
 
-const SITE_ADDRESS = [
-    process.env.SITE_SCHEME || 'https',
-    process.env.SITE_HOST   || 'akademie.fify.dev',
-].join('://');
-
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -73,18 +68,11 @@ Encore
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
 
-    // enables autoprefixer
-    .enablePostCssLoader()
-
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
 
-    .configureDevServerOptions(options => {
-        options.https = {
-            key:  `certs/caddy/certificates/local/${SITE_ADDRESS}/${SITE_ADDRESS}.key`,
-            cert: `certs/caddy/certificates/local/${SITE_ADDRESS}/${SITE_ADDRESS}.crt`,
-        }
-    })
+    // enables autoprefixer
+    .enablePostCssLoader()
 ;
 
 module.exports = Encore.getWebpackConfig();
