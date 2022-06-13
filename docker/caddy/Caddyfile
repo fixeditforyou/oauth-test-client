@@ -8,7 +8,7 @@
 }
 
 :80,
-{$SITE_SCHEME}://{$SITE_HOST} {
+https://{$SITE_HOST} {
     file_server
     encode gzip zstd
     push

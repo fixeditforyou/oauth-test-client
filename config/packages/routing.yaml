@@ -1,5 +1,4 @@
 parameters:
-    env(SITE_SCHEME): 'https'
     env(SITE_HOST): 'localhost'
 
 framework:
@@ -8,7 +7,7 @@ framework:
 
         # Configure how to generate URLs in non-HTTP contexts, such as CLI commands.
         # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
-        default_uri: '%env(SITE_SCHEME)%://%env(SITE_HOST)%'
+        default_uri: 'https://%env(SITE_HOST)%'
 
 when@prod:
     framework:
