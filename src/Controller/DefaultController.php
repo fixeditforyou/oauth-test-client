@@ -65,6 +65,16 @@ class DefaultController extends AbstractController
         Request $request,
         ClientRegistry $clientRegistry,
     ): Response {
+        $error            = $request->query->get('error');
+        $errorDescription = $request->query->get('error_description');
+
+        if ($error) {
+            return $this->render('index.html.twig', [
+                'error'            => $error,
+                'errorDescription' => $errorDescription,
+            ]);
+        }
+
         $client      = $clientRegistry->getClient(self::CLIENT_NAME);
         $accessToken = $client->getAccessToken();
 

@@ -3,11 +3,22 @@
 {% block title %}OAuth test client{% endblock title %}
 
 {% block body %}
+{% if error is defined and error is not empty %}
     <p>
-        {% if userdata is not empty %}
-            {{ dump(userdata) }}
-        {% endif %}
+        {{ dump(error) }}
+
+    {% if errorDescription is defined %}
+        {{ dump(errorDescription) }}
+    {% endif %}
+
     </p>
+{% endif %}
+
+{% if userdata is defined and userdata is not empty %}
+    <p>
+        {{ dump(userdata) }}
+    </p>
+{% endif %}
 
     <p>
         <a href="{{ path('authorize') }}">Start</a>
